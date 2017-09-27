@@ -1,0 +1,33 @@
+[2017-02-01 21:02:27]  [2017-02-01 21:02:27] Start patching with 01-Feb-2016.7z[2017-02-01 21:02:27] Upload file OK[2017-02-01 21:02:28] Extracting file OK[2017-02-01 21:02:28] Patching success ![2017-02-01 21:07:48]  
+[2017-02-01 21:07:48] Start patching with 01-Feb-2016.7z
+[2017-02-01 21:07:48] Upload file OK
+[2017-02-01 21:07:51] Extracting file OK
+[2017-02-01 21:07:51] Patching success !
+[2017-02-01 21:11:15]  
+[2017-02-01 21:11:15] Start patching with 01-Feb-2016.7z
+[2017-02-01 21:11:16] Upload file OK
+[2017-02-01 21:11:18] Extracting file OK
+[2017-02-01 21:11:18] Patching success !
+[2017-02-01 21:12:20] Patching FAILED. Wrong Password
+[2017-02-01 21:14:52]  
+[2017-02-01 21:14:52] Start patching with 01-Feb-2016.7z
+[2017-02-01 21:14:52] Upload file OK
+[2017-02-01 21:14:54] Extracting file OK
+[2017-02-01 21:14:54] Database file found, Importing ....
+[2017-02-01 21:14:55] Importing database file OK
+[2017-02-01 21:14:55] Patching success !
+[2017-02-01 21:18:21]  
+[2017-02-01 21:18:21] Start patching with 01-Feb-2016.7z
+[2017-02-01 21:18:21] Upload file OK
+[2017-02-01 21:18:24] Extracting file OK
+[2017-02-01 21:18:24] Database file found, Importing ....
+[2017-02-01 21:18:24] Importing database file OK
+[2017-02-01 21:18:24] Patching success !
+[2017-03-14 09:21:23] 
+[2017-03-14 09:21:23] Start patching with staima_siakad_v25_14032017.7z
+[2017-03-14 09:21:23] Bringing Application down.
+[2017-03-14 09:21:23] Upload file OK
+[2017-03-14 09:21:23] Not linux, should be Windows OS.
+[2017-03-14 09:21:26] Extracting file OK
+[2017-03-14 09:21:26] Bringing Application up.
+[2017-03-14 09:21:26] Patching success !
