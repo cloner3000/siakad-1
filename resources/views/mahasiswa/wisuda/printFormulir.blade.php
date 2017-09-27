@@ -76,7 +76,7 @@
 				<td>Alamat Lengkap</td><td>:</td><td>{{ $alamat }}</td>
 			</tr>											
 			<tr>
-				<td>Judul Skripsi</td><td>:</td><td>{{ $mahasiswa -> judulSkripsi }}</td>
+				<td valign="top">Judul Skripsi</td><td valign="top">:</td><td valign="top">{{ $mahasiswa -> skripsi -> judul }}</td>
 			</tr>					
 		</table>
 		<br/>

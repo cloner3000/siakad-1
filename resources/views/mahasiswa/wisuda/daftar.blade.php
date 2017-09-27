@@ -178,9 +178,9 @@ Pendaftaran Wisuda
 					{!! Form::label('hp', 'No. HP', array('class' => 'col-sm-2 control-label')) !!}
 					<div class="col-sm-5">
 						@if($show)
-						<p class="form-control-static">{{ $data -> telp }}</p>
+						<p class="form-control-static">{{ $data -> hp }}</p>
 						@else
-						{!! Form::text('hp', $data -> telp, array('class' => 'form-control', 'placeholder' => 'Nomor HP', 'required' => 'required')) !!}
+						{!! Form::text('hp', $data -> hp, array('class' => 'form-control', 'placeholder' => 'Nomor HP', 'required' => 'required')) !!}
 						@endif
 					</div>
 				</div>
@@ -207,7 +207,7 @@ Pendaftaran Wisuda
 							{!! Form::text('kelurahan', $data -> kelurahan, array('class' => 'form-control', 'placeholder' => 'Desa / Kelurahan', 'style' => 'width: 150px', 'required' => 'required')) !!}
 						</div>
 						<div style="display:inline-block;">
-							{!! Form::select('wilayah_id', $wilayah, $data -> wilayah_id, array('class' => 'form-control chosen-select', 'data-placeholder' => 'Kecamatan')) !!}
+							{!! Form::select('id_wil', $wilayah, $data -> id_wil, array('class' => 'form-control chosen-select', 'data-placeholder' => 'Kecamatan')) !!}
 						</div>
 						<div style="display:inline-block;">
 							{!! Form::text('kodePos', $data -> kodePos, array('class' => 'form-control', 'placeholder' => 'Kode Pos', 'style' => 'width: 150px')) !!}
@@ -220,47 +220,48 @@ Pendaftaran Wisuda
 					{!! Form::label('judulSkripsi', 'Judul Skripsi', array('class' => 'col-sm-2 control-label', 'required' => 'required')) !!}
 					<div class="col-sm-10">
 						@if($show)
-						<p class="form-control-static">{{ $data -> skripsi -> judul }}</p>
-					@else
-					{!! Form::textarea('judulSkripsi', $data -> judulSkripsi, array('class' => 'form-control', 'rows' => '5', 'placeholder' => 'Judul Skripsi')) !!}
-					@endif
+						<p class="form-control-static">{{ $data -> judul_skripsi }}</p>
+						{!! Form::hidden('judul_skripsi', $data -> judul_skripsi) !!}
+						@else
+						{!! Form::textarea('judul_skripsi', $data -> judul_skripsi , array('class' => 'form-control', 'rows' => '5', 'placeholder' => 'Judul Skripsi')) !!}
+						@endif
 					</div>
-					</div>	
-					{!! Form::hidden('statusMhs', '4') !!}
-					
-					@if(!$admin)
-					@if($show)
-					<p class="help-block">Jika terdapat kesalahan data, silahkan menghubungi Bagian Akademik.</p>
-					@else		
-					<div class="form-group">
+				</div>	
+				{!! Form::hidden('statusMhs', '4') !!}
+				
+				@if(!$admin)
+				@if($show)
+				<p class="help-block">Jika terdapat kesalahan data, silahkan menghubungi Bagian Akademik.</p>
+				@else		
+				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-					<p class="help-block">
-					*: Jika terdapat kesalahan data, silahkan menghubungi Bagian Akademik. Pastikan seluruh data sudah diisi dengan benar, data yang sudha masuk tidak dapat diubah lagi.<br/>
-					</p>
-					</div>		
-					</div>
-					@endif
-					@endif
-					
-					@if($show)
-					@if($admin)
-					<a href="{{ route('mahasiswa.wisuda.peserta.cetak', [$data -> wisuda -> id, $data -> id]) }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
-					@else	
-					<a href="{{ route('mahasiswa.wisuda.peserta.cetak2') }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
-					@endif
-					@else		
-					<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-					<button class="btn btn-primary btn-flat" type="submit"><i class="fa fa-floppy-o"></i> Simpan</button>
-					</div>		
-					</div>
-					@endif
-					{!! Form::close() !!}
-					</div>
-					</div>
-					@endif
-					<br/>
-					<br/>
-					</div>
-					</div>
-					@endsection																																									
+						<p class="help-block">
+							*: Jika terdapat kesalahan data, silahkan menghubungi Bagian Akademik. Pastikan seluruh data sudah diisi dengan benar, data yang sudha masuk tidak dapat diubah lagi.<br/>
+						</p>
+						</div>		
+						</div>
+						@endif
+						@endif
+						
+						@if($show)
+						@if($admin)
+						<a href="{{ route('mahasiswa.wisuda.peserta.cetak', [$data -> wisuda -> id, $data -> id]) }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
+						@else	
+						<a href="{{ route('mahasiswa.wisuda.peserta.cetak2') }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
+						@endif
+						@else		
+						<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+						<button class="btn btn-primary btn-flat" type="submit"><i class="fa fa-floppy-o"></i> Simpan</button>
+						</div>		
+						</div>
+						@endif
+						{!! Form::close() !!}
+						</div>
+						</div>
+						@endif
+						<br/>
+						<br/>
+						</div>
+						</div>
+						@endsection																																																						
