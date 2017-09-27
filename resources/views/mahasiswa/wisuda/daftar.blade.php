@@ -217,7 +217,7 @@ Pendaftaran Wisuda
 				</div>
 				
 				<div class="form-group">
-					{!! Form::label('judulSkripsi', 'Judul Skripsi', array('class' => 'col-sm-2 control-label', 'required' => 'required')) !!}
+					{!! Form::label('judul_skripsi', 'Judul Skripsi', array('class' => 'col-sm-2 control-label', 'required' => 'required')) !!}
 					<div class="col-sm-10">
 						@if($show)
 						<p class="form-control-static">{{ $data -> judul_skripsi }}</p>
@@ -238,30 +238,30 @@ Pendaftaran Wisuda
 						<p class="help-block">
 							*: Jika terdapat kesalahan data, silahkan menghubungi Bagian Akademik. Pastikan seluruh data sudah diisi dengan benar, data yang sudha masuk tidak dapat diubah lagi.<br/>
 						</p>
-						</div>		
-						</div>
-						@endif
-						@endif
-						
-						@if($show)
-						@if($admin)
-						<a href="{{ route('mahasiswa.wisuda.peserta.cetak', [$data -> wisuda -> id, $data -> id]) }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
-						@else	
-						<a href="{{ route('mahasiswa.wisuda.peserta.cetak2') }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
-						@endif
-						@else		
-						<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
+					</div>		
+				</div>
+				@endif
+				@endif
+				
+				@if($show)
+				@if($admin)
+				<a href="{{ route('mahasiswa.wisuda.peserta.cetak', [$data -> wisuda -> id, $data -> id]) }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
+				@else	
+				<a href="{{ route('mahasiswa.wisuda.peserta.cetak2') }}" class="btn btn-info btn-flat" ><i class="fa fa-print"></i> Cetak</a>
+				@endif
+				@else		
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
 						<button class="btn btn-primary btn-flat" type="submit"><i class="fa fa-floppy-o"></i> Simpan</button>
-						</div>		
-						</div>
-						@endif
-						{!! Form::close() !!}
-						</div>
-						</div>
-						@endif
-						<br/>
-						<br/>
-						</div>
-						</div>
-						@endsection																																																						
+					</div>		
+				</div>
+				@endif
+				{!! Form::close() !!}
+			</div>
+		</div>
+		@endif
+		<br/>
+		<br/>
+	</div>
+</div>
+@endsection																																																						

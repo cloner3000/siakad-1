@@ -107,8 +107,9 @@
 					$show = true;	
 					$wisuda = Wisuda::whereId($data -> wisuda_id) -> get();
 				}
-				$data -> judul_skripsi = isset($data -> skripsi) ? $data -> skripsi -> judul : '';
+				$data -> judul_skripsi = intval($data -> skripsi_id > 0) ? $data -> skripsi -> judul : '';
 			}
+			// dd($data);
 			return view('mahasiswa.wisuda.daftar', compact('data', 'wilayah', 'alamat', 'show', 'wisuda', 'admin'));
 		}
 		
@@ -153,47 +154,48 @@
 		*/
 		public function index()
 		{
-		$wisuda = Wisuda::dataWisuda() -> get();
-		return view('mahasiswa.wisuda.index', compact('wisuda'));
+			$wisuda = Wisuda::dataWisuda() -> get();
+			return view('mahasiswa.wisuda.index', compact('wisuda'));
 		}
 		
 		public function peserta($id)
 		{
-		$wisuda = Wisuda::whereId($id) -> first();
-		$peserta = \Siakad\Mahasiswa::where('wisuda_id', $id) -> with('skripsi') -> with('prodi') -> with('kelas') -> paginate(30);
-		return view('mahasiswa.wisuda.peserta', compact('wisuda', 'peserta'));
+			$wisuda = Wisuda::whereId($id) -> first();
+			$peserta = \Siakad\Mahasiswa::where('wisuda_id', $id) -> with('skripsi') -> with('prodi') -> with('kelas') -> paginate(30);
+			return view('mahasiswa.wisuda.peserta', compact('wisuda', 'peserta'));
 		}
 		
 		public function showPeserta($id, $mhs)
 		{
-		$wisuda = Wisuda::whereId($id) -> first();
-		$show = $admin = true;
-		$data = \Siakad\Mahasiswa::whereId($mhs) -> first();
-		
-		$alamat = '';
-		if($data['jalan'] != '') $alamat .= 'Jl. ' . $data['jalan'] . ' ';
-		if($data['dusun'] != '') $alamat .= $data['dusun'] . ' ';
-		if($data['rt'] != '') $alamat .= 'RT ' . $data['rt'] . ' ';
-		if($data['rw'] != '') $alamat .= 'RW ' . $data['rw'] . ' ';
-		if($data['kelurahan'] != '') $alamat .= $data['kelurahan'] . ' ';
-		if($data['id_wil'] != '') 
-		{
-		$wilayah2 = \Siakad\Wilayah::dataKecamatan($data['id_wil']) -> first();
-		$alamat .= trim($wilayah2 -> kec) . ' ' . trim($wilayah2 -> kab) . ' ' . trim($wilayah2 -> prov) . ' ';
-		}
-		if($data['kodePos'] != '') $alamat .= $data['kodePos'];
-		
-		return view('mahasiswa.wisuda.daftar', compact('data', 'alamat', 'show', 'wisuda', 'admin'));
+			$wisuda = Wisuda::whereId($id) -> first();
+			$show = $admin = true;
+			$data = \Siakad\Mahasiswa::whereId($mhs) -> first();
+			
+			$alamat = '';
+			if($data['jalan'] != '') $alamat .= 'Jl. ' . $data['jalan'] . ' ';
+			if($data['dusun'] != '') $alamat .= $data['dusun'] . ' ';
+			if($data['rt'] != '') $alamat .= 'RT ' . $data['rt'] . ' ';
+			if($data['rw'] != '') $alamat .= 'RW ' . $data['rw'] . ' ';
+			if($data['kelurahan'] != '') $alamat .= $data['kelurahan'] . ' ';
+			if($data['id_wil'] != '') 
+			{
+				$wilayah2 = \Siakad\Wilayah::dataKecamatan($data['id_wil']) -> first();
+				$alamat .= trim($wilayah2 -> kec) . ' ' . trim($wilayah2 -> kab) . ' ' . trim($wilayah2 -> prov) . ' ';
+			}
+			if($data['kodePos'] != '') $alamat .= $data['kodePos'];
+			
+			$data -> judul_skripsi = intval($data -> skripsi_id > 0) ? $data -> skripsi -> judul : '';
+			return view('mahasiswa.wisuda.daftar', compact('data', 'alamat', 'show', 'wisuda', 'admin'));
 		}
 		
 		public function hapusPeserta($id, $mhs)
 		{
-		\Siakad\Mahasiswa::find($mhs) -> update(['wisuda_id' => '']);
-		return Redirect::route('mahasiswa.wisuda.peserta', $id) -> with('message', 'Peserta wisuda berhasil dihapus.');
+			\Siakad\Mahasiswa::find($mhs) -> update(['wisuda_id' => '']);
+			return Redirect::route('mahasiswa.wisuda.peserta', $id) -> with('message', 'Peserta wisuda berhasil dihapus.');
 		}
 		
 		/**
-		* Show the form for creating a new resource.
+			* Show the form for creating a new resource.
 		*
 		* @return \Illuminate\Http\Response
 		*/
