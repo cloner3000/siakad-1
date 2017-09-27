@@ -1,8 +1,37 @@
-
+@push('scripts')
+<script src="{{ asset('/js/chosen.jquery.min.js') }}"></script>
+<script>
+	$(function(){
+		$(".chosen-select").chosen({
+			no_results_text: "Tidak ditemukan hasil pencarian untuk: "
+		});
+	});  
+</script>
+@endpush
+@push('styles')
+<link rel="stylesheet" href="{{ asset('/css/chosen.min.css') }}">
+<style>
+	.chosen-container{
+	font-size: inherit;
+	}
+	.chosen-single{
+	padding: 6px 10px !important;
+	box-shadow: none !important;
+    border-color: #d2d6de !important;
+	background: white !important;
+	height: 34px !important;
+	border-radius: 0px !important;
+	}
+	.chosen-drop{
+    border-color: #d2d6de !important;	
+	box-shadow: none;
+	}
+</style>
+@endpush
 <div class="form-group">
 	{!! Form::label('', 'Nama:', array('class' => 'col-sm-3 control-label')) !!}
 	<div class="col-sm-5">
-		{!! Form::select('dosen_id', $dosen_list, Input::get('dosen'), ['class' => 'form-control', 'id' => 'filter']) !!}
+		{!! Form::select('dosen_id', $dosen_list, Input::get('dosen'), ['class' => 'form-control chosen-select', 'id' => 'filter']) !!}
 	</div>
 </div>
 <div class="form-group">

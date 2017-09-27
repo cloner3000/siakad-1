@@ -14,7 +14,7 @@
 	class DosenJurnalController extends Controller
 	{		
 		protected $rules = [
-		'issn' => ['digits:9']
+		//'issn' => ['digits:9']
 		];
 		
 		public function index()
