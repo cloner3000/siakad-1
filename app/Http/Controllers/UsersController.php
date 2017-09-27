@@ -10,6 +10,7 @@
 	
 	use Illuminate\Http\Request;
 	
+	use Siakad\Jobs\SendResetPasswordRequestEmail;
 	// use Illuminate\Contracts\Auth\Authenticatable as UserAuth;
 	
 	class UsersController extends Controller {
@@ -22,10 +23,80 @@
 		'dosen' => 128
 		];
 		
-		/* public function __construct()
+		public function getUsername()
 		{
-			$this->middleware('auth');
-		} */
+			return view('auth.passwords.username');
+		}
+		
+		public function getResetPassword($username, $reset_token)
+		{
+			$user = User::whereUsername($username) -> where('reset_token', $reset_token) -> first();
+			if(!$user) abort(404);
+			return view('auth.passwords.reset', compact('user'));
+		}
+		
+		public function postResetPassword(Request $request)
+		{
+			$this->rules['password'] = array('min:3', 'same:password_confirmation');
+			$this -> validate($request, $this->rules);
+			
+			$input = array_except(Input::all(), ['_token', 'password_confirmation']);
+			
+			$user = User::whereUsername($input['username']) -> where('reset_token', $input['reset_token']);
+			if(!$user) abort(404);
+			
+			$input['password'] = bcrypt($input['password']);
+			unset($input['old-password']);
+			$input['reset_token'] = null;
+			$input['reset_ip'] = null;
+			$user -> update($input);
+			return redirect('/auth/login') -> with('message', 'Password berhasil diubah.');
+		}
+		
+		public function postUsername(Request $request)
+		{
+			$this->validate($request, ['username' => 'required']);
+			$user = User::whereUsername(Input::get('username')) -> first();
+			
+			if(!$user) return view('auth.passwords.username') -> withErrors(['username' => 'Maaf, Username tidak terdaftar.']);
+			
+			switch($user -> authable_type)
+			{
+				case 'Siakad\Dosen':
+				$data = \Siakad\Dosen::whereId($user -> authable_id) -> first() -> toArray();
+				break;
+				
+				case 'Siakad\Mahasiswa':
+				$data = \Siakad\Mahasiswa::whereId($user -> authable_id) -> first() -> toArray();
+				break;
+				
+				case 'Siakad\Admin':
+				$data = \Siakad\Admin::whereId($user -> authable_id) -> first() -> toArray();
+				break;
+			}
+			
+			
+			if($user -> authable_type == 'Siakad\Mahasiswa')
+			{
+				if($data['statusMhs'] != '1') return view('auth.passwords.username') -> withErrors(['username' => 'Status Mahasiswa tidak aktif. Silahkan hubungi Administrator untuk informasi lebih lanjut.']);
+			}
+			
+			$validator = \Validator::make($data, ['email' => 'required|email']);			
+			if($validator -> fails()) return view('auth.passwords.username') -> withErrors(['username' => 'Email belum diisi / format email salah. Silahkan hubungi Administrator untuk informasi lebih lanjut.']);
+			
+			$data['username'] = $user -> username;
+			$data['ip'] = $request -> ip();
+			$data['config'] = config('custom');
+			$data['reset_token'] = str_random(64);
+			
+			$user -> update([
+			'reset_token' => $data['reset_token'],
+			'reset_ip' => $data['ip']
+			]);
+			
+			$this -> dispatch(new SendResetPasswordRequestEmail($data));
+			return Redirect::route('password.username') -> with('message', 'Petunjuk reset password telah dikirimkan ke email anda.');	
+		}
 		
 		public function cleanup($type)
 		{
@@ -324,171 +395,168 @@
 			SELECT username, nama 
 			FROM users 
 			INNER JOIN mahasiswa ON users.authable_id = mahasiswa.id 
-			WHERE mahasiswa.nama LIKE :nama OR mahasiswa.NIM LIKE :nim 
-			ORDER BY mahasiswa.NIM', 
-			['nama' => '%' . $input['query'] . '%', 'nim' => '%' . $input['query'] . '%']
-			);
-			
-			return \Response::json(['results' => $results]);
+		WHERE mahasiswa.nama LIKE :nama OR mahasiswa.NIM LIKE :nim 
+		ORDER BY mahasiswa.NIM', 
+		['nama' => '%' . $input['query'] . '%', 'nim' => '%' . $input['query'] . '%']
+		);
+		
+		return \Response::json(['results' => $results]);
 		}
 		
 		public function resetPassword($target,  $filter=null)
 		{
-			if($target == 'mahasiswa')
-			{
-				if($filter != null)
-				{
-					return view('users.resetpasswordmahasiswa2');
-				}
-				else
-				{
-					return view('users.resetpasswordmahasiswa');					
-				}
-			}
-			elseif($target == 'dosen')
-			{
-				abort(404);		
-				// return view('users.resetpassworddosen');		
-			}
+		if($target == 'mahasiswa')
+		{
+		if($filter != null)
+		{
+		return view('users.resetpasswordmahasiswa2');
+		}
+		else
+		{
+		return view('users.resetpasswordmahasiswa');					
+		}
+		}
+		elseif($target == 'dosen')
+		{
+		abort(404);		
+		// return view('users.resetpassworddosen');		
+		}
 		}
 		public function resetPasswordProses($target, $filter=null)
 		{
-			$tmp = null;
-			$input = Input::except(['_token']);
-			if($target == 'mahasiswa')
-			{
-				if($filter == null)
-				{
-					$users = User::where('role_id', $this -> roles[$target]);
-					if($users -> count())
-					{
-						$plain_password = isset($input['password']) && $input['password'] != '' ? $input['password'] : str_random();
-						$password = bcrypt($plain_password);
-						$users -> update(['password' => $password]);
-						
-						return redirect('/pengguna/resetpassword/'. $target) -> with('success', 'Password seluruh Mahasiswa berhasil diubah menjadi "' . $plain_password . '".');
-					}
-				}
-				else
-				{
-					$input['target'] = json_decode($input['target'], true);
-					if(count($input['target']) > 0)
-					{
-						if($input['options'] == 'random-all')
-						{
-							$users = User::whereIn('username', $input['target']);
-							if($users -> count())
-							{
-								$plain_password = str_random(6);
-								
-								foreach($input['target'] as $target) $tmp[$target] = $plain_password;
-								$cache_name = md5(date('Y-m-d H:i:s'));
-								\Cache::put($cache_name, $tmp, 60);
-								
-								$password = bcrypt($plain_password);
-								$users -> update(['password' => $password]);
-								
-								return redirect('/pengguna/resetpassword/mahasiswa/filter') -> with('success_raw', 'Password Mahasiswa berhasil diubah. <a target="_blank" href="'. url('/pengguna/cetakpassword?key=' . $cache_name) .'" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-print"></i> Cetak kartu</a>');
-							}
-						}
-						elseif($input['options'] == 'text')
-						{
-							if($input['textPassword'] != '')
-							{
-								$users = User::whereIn('username', $input['target']);
-								if($users -> count())
-								{
-									$plain_password = $input['textPassword'];
-									
-									foreach($input['target'] as $target) $tmp[$target] = $plain_password;
-									$cache_name = md5(date('Y-m-d H:i:s'));
-									\Cache::put($cache_name, $tmp, 60);
-									
-									$password = bcrypt($plain_password);
-									$users -> update(['password' => $password]);
-									
-									return redirect('/pengguna/resetpassword/mahasiswa/filter') -> with('success_raw', 'Password Mahasiswa berhasil diubah. <a target="_blank" href="'. url('/pengguna/cetakpassword?key=' . $cache_name) .'" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-print"></i> Cetak kartu</a>');
-								}
-							}
-							else
-							{
-								return back() -> withErrors(['text_not_set' => 'Password harus diisi']);			
-							}
-						}
-						elseif($input['options'] == 'random')
-						{
-							foreach($input['target'] as $target)
-							{
-								$plain_password = str_random(6);
-								$tmp[$target] = $plain_password;
-								User::whereUsername($target) -> update(['password' => bcrypt($plain_password)]);
-							}
-							$cache_name = md5(date('Y-m-d H:i:s'));
-							\Cache::put($cache_name, $tmp, 60);
-							return redirect('/pengguna/resetpassword/mahasiswa/filter') -> with('success_raw', 'Password Mahasiswa berhasil diubah. <a target="_blank" href="'. url('/pengguna/cetakpassword?key=' . $cache_name) .'" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-print"></i> Cetak kartu</a>');
-						}
-					}
-				}
-			}
-			// return redirect('/pengguna/resetpassword/'. $target)  -> withErrors(['role_not_found' => 'Data pengguna tidak ditemukan.']);			
-			return back()  -> withErrors(['role_not_found' => 'Data pengguna tidak ditemukan.']);			
+		$tmp = null;
+		$input = Input::except(['_token']);
+		if($target == 'mahasiswa')
+		{
+		if($filter == null)
+		{
+		$users = User::where('role_id', $this -> roles[$target]);
+		if($users -> count())
+		{
+		$plain_password = isset($input['password']) && $input['password'] != '' ? $input['password'] : str_random();
+		$password = bcrypt($plain_password);
+		$users -> update(['password' => $password]);
+		
+		return redirect('/pengguna/resetpassword/'. $target) -> with('success', 'Password seluruh Mahasiswa berhasil diubah menjadi "' . $plain_password . '".');
+		}
+		}
+		else
+		{
+		$input['target'] = json_decode($input['target'], true);
+		if(count($input['target']) > 0)
+		{
+		if($input['options'] == 'random-all')
+		{
+		$users = User::whereIn('username', $input['target']);
+		if($users -> count())
+		{
+		$plain_password = str_random(6);
+		
+		foreach($input['target'] as $target) $tmp[$target] = $plain_password;
+		$cache_name = md5(date('Y-m-d H:i:s'));
+		\Cache::put($cache_name, $tmp, 60);
+		
+		$password = bcrypt($plain_password);
+		$users -> update(['password' => $password]);
+		
+		return redirect('/pengguna/resetpassword/mahasiswa/filter') -> with('success_raw', 'Password Mahasiswa berhasil diubah. <a target="_blank" href="'. url('/pengguna/cetakpassword?key=' . $cache_name) .'" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-print"></i> Cetak kartu</a>');
+		}
+		}
+		elseif($input['options'] == 'text')
+		{
+		if($input['textPassword'] != '')
+		{
+		$users = User::whereIn('username', $input['target']);
+		if($users -> count())
+		{
+		$plain_password = $input['textPassword'];
+		
+		foreach($input['target'] as $target) $tmp[$target] = $plain_password;
+		$cache_name = md5(date('Y-m-d H:i:s'));
+		\Cache::put($cache_name, $tmp, 60);
+		
+		$password = bcrypt($plain_password);
+		$users -> update(['password' => $password]);
+		
+		return redirect('/pengguna/resetpassword/mahasiswa/filter') -> with('success_raw', 'Password Mahasiswa berhasil diubah. <a target="_blank" href="'. url('/pengguna/cetakpassword?key=' . $cache_name) .'" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-print"></i> Cetak kartu</a>');
+		}
+		}
+		else
+		{
+		return back() -> withErrors(['text_not_set' => 'Password harus diisi']);			
+		}
+		}
+		elseif($input['options'] == 'random')
+		{
+		foreach($input['target'] as $target)
+		{
+		$plain_password = str_random(6);
+		$tmp[$target] = $plain_password;
+		User::whereUsername($target) -> update(['password' => bcrypt($plain_password)]);
+		}
+		$cache_name = md5(date('Y-m-d H:i:s'));
+		\Cache::put($cache_name, $tmp, 60);
+		return redirect('/pengguna/resetpassword/mahasiswa/filter') -> with('success_raw', 'Password Mahasiswa berhasil diubah. <a target="_blank" href="'. url('/pengguna/cetakpassword?key=' . $cache_name) .'" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-print"></i> Cetak kartu</a>');
+		}
+		}
+		}
+		}
+		// return redirect('/pengguna/resetpassword/'. $target)  -> withErrors(['role_not_found' => 'Data pengguna tidak ditemukan.']);			
+		return back()  -> withErrors(['role_not_found' => 'Data pengguna tidak ditemukan.']);			
 		}
 		
 		public function printPassword()
 		{
-			$tmp = \Cache::get(Input::get('key'));
-			$users = User::whereIn('username', array_keys($tmp)) -> get();
-			// dd($users);
-			if($tmp == null) abort(404);
-			return view('users.printpassword', compact('tmp', 'users'));
+		$tmp = \Cache::get(Input::get('key'));
+		$users = User::whereIn('username', array_keys($tmp)) -> get();
+		// dd($users);
+		if($tmp == null) abort(404);
+		return view('users.printpassword', compact('tmp', 'users'));
 		}
 		
 		/**
-			* Update the specified resource in storage.
-			*
-			* @param  int  $id
-			* @return Response
+		* Update the specified resource in storage.
+		*
+		* @param  int  $id
+		* @return Response
 		*/
 		public function update(Request $request, $id)
 		{
-			$this->rules['password'] = array('min:3', 'same:password_confirmation');
-			$this -> validate($request, $this->rules);
-			
-			$user = User::find($id);
-			$input = Input::except('_token', 'password_confirmation');
-			
-			if($input['password'] != '' && $input['password'] != null) 
-			{
-				$input['password'] = bcrypt($input['password']);
-			}
-			else
-			{
-				unset($input['password']);	
-			}
-			
-			if($input['foto'] != '')	$authable = array_only($input, ['nama', 'telp', 'email', 'foto']);
-			else $authable = array_only($input, ['nama', 'telp', 'email']);
-			$authinfo = array_except($input, ['nama', 'telp', 'email', 'foto']);
-			
-			$user -> authable() -> update($authable);
-			$user -> update($authinfo);
-			
-			return Redirect::route('pengguna.index') -> with('message', 'Data pengguna berhasil diperbarui.');
+		$this->rules['password'] = array('min:3', 'same:password_confirmation');
+		$this -> validate($request, $this->rules);
+		
+		$user = User::find($id);
+		$input = Input::except('_token', 'password_confirmation');
+		
+		if($input['password'] != '' && $input['password'] != null) 
+		{
+		$input['password'] = bcrypt($input['password']);
+		}
+		else
+		{
+		unset($input['password']);	
+		}
+		
+		if($input['foto'] != '')	$authable = array_only($input, ['nama', 'telp', 'email', 'foto']);
+		else $authable = array_only($input, ['nama', 'telp', 'email']);
+		$authinfo = array_except($input, ['nama', 'telp', 'email', 'foto']);
+		
+		$user -> authable() -> update($authable);
+		$user -> update($authinfo);
+		
+		return Redirect::route('pengguna.index') -> with('message', 'Data pengguna berhasil diperbarui.');
 		}
 		
 		/**
-			* Remove the specified resource from storage.
-			*
-			* @param  int  $id
-			* @return Response
+		* Remove the specified resource from storage.
+		*
+		* @param  int  $id
+		* @return Response
 		*/
 		public function destroy($id)
 		{
-			User::find($id) -> delete();
-			return redirect() -> back() -> with('message', 'Data Pengguna berhasil dihapus.');
+		User::find($id) -> delete();
+		return redirect() -> back() -> with('message', 'Data Pengguna berhasil dihapus.');
 		}
-		public function forgetPassword()
-		{
-			
 		}
-	}
+				

@@ -9,13 +9,29 @@
 	
 	Route::controllers([
 	'auth' => 'Auth\AuthController',
-	//'password' => 'Auth\PasswordController',
 	]);
 	
 	Route::get(
-	'/password/reset', 
-	'UsersController@forgetPassword'
+	'/password/reset/{username}/{reset_token}', [
+	'uses' => 'UsersController@getResetPassword'
+	]
 	);
+	Route::post(
+	'/password/reset', 
+	'UsersController@postResetPassword'
+	);
+	
+	Route::get(
+	'/password/username', [
+	'as' => 'password.username',
+	'uses' => 'UsersController@getUsername'
+	]
+	);
+	Route::post(
+	'/password/username', 
+	'UsersController@postUsername'
+	);
+	
 	
 	Route::post('/upload/image', 'UploadController@storeImage');
 	Route::get(

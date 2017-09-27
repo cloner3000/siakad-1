@@ -67,7 +67,7 @@ return [
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -106,7 +106,9 @@ return [
 	|
 	*/
 
-	'sendmail' => '/usr/sbin/sendmail -bs',
+	// 'sendmail' => '/usr/sbin/sendmail -bs',
+	// 'sendmail' => 'D:\xampp\mailtodisk\mailtodisk.exe -t',
+	'sendmail' => 'D:\xampp\sendmail\sendmail.exe -t',
 
 	/*
 	|--------------------------------------------------------------------------

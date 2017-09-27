@@ -173,7 +173,7 @@
 						<div class="form-group">
 							<div class="col-md-12">
 								<button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i> Masuk</button>
-								<a class="btn btn-link" href="{{ url('/password/reset') }}">
+								<a class="btn btn-link" href="{{ url('/password/username') }}">
                                     Lupa Password?
                                 </a>
 							</div>

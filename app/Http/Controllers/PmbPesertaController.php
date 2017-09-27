@@ -205,7 +205,8 @@
 			PmbPeserta::create($input);
 			
 			//send email
-			$this -> sendEmail($noPendaftaran);
+			$this -> dispatch(new SendPmbNotificationEmail($noPendaftaran));
+			// $this -> sendEmail($noPendaftaran);
 			
 			return Redirect::route('pmb.peserta.stored', $input['kode']) -> with('message', 'Proses pendaftaran berhasil.');
 		}
@@ -218,7 +219,7 @@
 			return view('pmb.peserta.stored', compact('data', 'psb'));
 		}
 		
-		public function sendEmail($no)
+		/* public function sendEmail($no)
 		{
 			$data = PmbPeserta::where('noPendaftaran', $no) -> first();
 			$to = explode(',', config('custom.profil.email'));
@@ -247,21 +248,21 @@
 				// not so much
 				// return 'Error';
 			}
-		}
+		} */
 		
 		public function show($no_pendaftaran)
 		{
 			$configs = Config::whereModule('pmb') -> get();
 		foreach($configs as $conf)
 		{
-			if($conf -> attribute == 'tahun') $tmp['tahun'] = $conf -> value;
-			if($conf -> attribute == 'status') $tmp['status'] = $conf -> value;
-			if($conf -> attribute == 'mulai') $tmp['mulai'] = $conf -> value;
-			if($conf -> attribute == 'selesai') $tmp['selesai'] = $conf -> value;
-			if($conf -> attribute == 'kuota-1') $tmp['kuota-1'] = $conf -> value;
-			if($conf -> attribute == 'kuota-2') $tmp['kuota-2'] = $conf -> value;
-			if($conf -> attribute == 'kuota-3') $tmp['kuota-3'] = $conf -> value;
-			if($conf -> attribute == 'syarat') $tmp['syarat'] = $conf -> value;
+		if($conf -> attribute == 'tahun') $tmp['tahun'] = $conf -> value;
+		if($conf -> attribute == 'status') $tmp['status'] = $conf -> value;
+		if($conf -> attribute == 'mulai') $tmp['mulai'] = $conf -> value;
+		if($conf -> attribute == 'selesai') $tmp['selesai'] = $conf -> value;
+		if($conf -> attribute == 'kuota-1') $tmp['kuota-1'] = $conf -> value;
+		if($conf -> attribute == 'kuota-2') $tmp['kuota-2'] = $conf -> value;
+		if($conf -> attribute == 'kuota-3') $tmp['kuota-3'] = $conf -> value;
+		if($conf -> attribute == 'syarat') $tmp['syarat'] = $conf -> value;
 		}
 		$data = PmbPeserta::where('noPendaftaran', $no_pendaftaran) -> first();
 		if(!$data) abort(404);
@@ -269,57 +270,58 @@
 		}	
 		
 		/* public function edit($no_pendaftaran)
-			{
-			if(Input::get('key') !== getPMBKey($no_pendaftaran)) return Redirect::route('pmb.konfirmasi', ['edit', $no_pendaftaran]);
-			$mahasiswa = PmbPeserta::where('noPendaftaran', $no_pendaftaran)->first();
-			
-			$configs = Config::whereModule('pmb') -> get();
-			foreach($configs as $conf)
-			{
-			if($conf -> attribute == 'tahun') $tmp['tahun'] = $conf -> value;
-			if($conf -> attribute == 'status') $tmp['status'] = $conf -> value;
-			if($conf -> attribute == 'mulai') $tmp['mulai'] = $conf -> value;
-			if($conf -> attribute == 'selesai') $tmp['selesai'] = $conf -> value;
-			if($conf -> attribute == 'kuota-1') $tmp['kuota-1'] = $conf -> value;
-			if($conf -> attribute == 'kuota-2') $tmp['kuota-2'] = $conf -> value;
-			if($conf -> attribute == 'kuota-3') $tmp['kuota-3'] = $conf -> value;
-			if($conf -> attribute == 'syarat') $tmp['syarat'] = $conf -> value;
-			}
-			$tmp2 = \DB::select('select jurusan, count(jurusan) as pendaftar from pmb where periode = "'. $tmp['tahun'] .'" group by jurusan order by jurusan');
-			
-			foreach(config('custom.jurusan') as $k => $v) 
-			{
-			if(isset($tmp2[$k-1])) $pendaftar[$k] = $tmp2[$k-1] -> pendaftar;
-			else $pendaftar[$k] = 0;
-			}
-			
-			return view('pmb.peserta.edit', compact('mahasiswa', 'pendaftar', 'tmp'));		
-			}	
-			
-			public function update(Request $request, $no_pendaftaran)
-			{
-			if($request -> ip() != '127.0.0.1') $this -> rules['g-recaptcha-response'] = ['required', 'captcha'];
-			$this -> validate($request, $this -> rules);
-			
-			$input = array_except(Input::all(), ['_token', 'g-recaptcha-response', '_method']);
-			if(isset($input['p-lain-ayah']) and $input['p-lain-ayah'] != '') 
-			{
-			$input['pekerjaanAyah'] = $input['p-lain-ayah'];			
-			}
-			if(isset($input['p-lain-ibu']) and $input['p-lain-ibu'] != '') 
-			{
-			$input['pekerjaanIbu'] = $input['p-lain-ibu'];		
-			}
-			unset($input['p-lain-ibu']);		
-			unset($input['p-lain-ayah']);	
-			
-			$pmb = PmbPeserta::where('noPendaftaran', $no_pendaftaran);
-			$input['ipAddr'] = $request -> ip();
-			$input['UA'] = $request -> header('user-agent');
-			$pmb -> update($input);
-			
-			$key = getPMBKey($no_pendaftaran);
-			return view('pmb.peserta.updated', compact('no_pendaftaran', 'key'));
-			}	
+		{
+		if(Input::get('key') !== getPMBKey($no_pendaftaran)) return Redirect::route('pmb.konfirmasi', ['edit', $no_pendaftaran]);
+		$mahasiswa = PmbPeserta::where('noPendaftaran', $no_pendaftaran)->first();
+		
+		$configs = Config::whereModule('pmb') -> get();
+		foreach($configs as $conf)
+		{
+		if($conf -> attribute == 'tahun') $tmp['tahun'] = $conf -> value;
+		if($conf -> attribute == 'status') $tmp['status'] = $conf -> value;
+		if($conf -> attribute == 'mulai') $tmp['mulai'] = $conf -> value;
+		if($conf -> attribute == 'selesai') $tmp['selesai'] = $conf -> value;
+		if($conf -> attribute == 'kuota-1') $tmp['kuota-1'] = $conf -> value;
+		if($conf -> attribute == 'kuota-2') $tmp['kuota-2'] = $conf -> value;
+		if($conf -> attribute == 'kuota-3') $tmp['kuota-3'] = $conf -> value;
+		if($conf -> attribute == 'syarat') $tmp['syarat'] = $conf -> value;
+		}
+		$tmp2 = \DB::select('select jurusan, count(jurusan) as pendaftar from pmb where periode = "'. $tmp['tahun'] .'" group by jurusan order by jurusan');
+		
+		foreach(config('custom.jurusan') as $k => $v) 
+		{
+		if(isset($tmp2[$k-1])) $pendaftar[$k] = $tmp2[$k-1] -> pendaftar;
+		else $pendaftar[$k] = 0;
+		}
+		
+		return view('pmb.peserta.edit', compact('mahasiswa', 'pendaftar', 'tmp'));		
+		}	
+		
+		public function update(Request $request, $no_pendaftaran)
+		{
+		if($request -> ip() != '127.0.0.1') $this -> rules['g-recaptcha-response'] = ['required', 'captcha'];
+		$this -> validate($request, $this -> rules);
+		
+		$input = array_except(Input::all(), ['_token', 'g-recaptcha-response', '_method']);
+		if(isset($input['p-lain-ayah']) and $input['p-lain-ayah'] != '') 
+		{
+		$input['pekerjaanAyah'] = $input['p-lain-ayah'];			
+		}
+		if(isset($input['p-lain-ibu']) and $input['p-lain-ibu'] != '') 
+		{
+		$input['pekerjaanIbu'] = $input['p-lain-ibu'];		
+		}
+		unset($input['p-lain-ibu']);		
+		unset($input['p-lain-ayah']);	
+		
+		$pmb = PmbPeserta::where('noPendaftaran', $no_pendaftaran);
+		$input['ipAddr'] = $request -> ip();
+		$input['UA'] = $request -> header('user-agent');
+		$pmb -> update($input);
+		
+		$key = getPMBKey($no_pendaftaran);
+		return view('pmb.peserta.updated', compact('no_pendaftaran', 'key'));
+		}	
 		*/
-	}
+		}
+				
