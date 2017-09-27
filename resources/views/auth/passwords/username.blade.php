@@ -42,38 +42,21 @@
 								</div>
 								@endif
 								<div class="panel panel-default">
-									<div class="panel-heading">Password Baru</div>
+									<div class="panel-heading">Reset Password</div>
 									
 									<div class="panel-body">
-										<form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
+										<form class="form-horizontal" role="form" method="POST" action="{{ url('/password/username') }}">
 											{{ csrf_field() }}
-											{!! Form::hidden('username', $user -> username) !!}
-											{!! Form::hidden('reset_token', $user -> reset_token) !!}
-											<div class="form-group">
-												<label class="col-md-4 control-label">Username</label>
-												<div class="col-md-6">
-													<p class="form-control-static">{{ $user->username }}</p>
-												</div>
-											</div>
-											<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-												<label class="col-md-4 control-label">Password Baru</label>
-												<div class="col-md-6">
-													<input type="password" class="form-control" name="password" required="required">
-													@if ($errors->has('password'))
-													<span class="help-block">
-														{{ $errors->first('password') }}
-													</span>
-													@endif
-												</div>
-											</div>
 											
-											<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-												<label class="col-md-4 control-label">Ulangi Password Baru</label>
+											<div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+												<label for="username" class="col-md-4 control-label">Username</label>
+												
 												<div class="col-md-6">
-													<input type="password" class="form-control" name="password_confirmation"  required="required">
-													@if ($errors->has('password_confirmation'))
+													<input id="username" type="text" class="form-control" name="username" value="{{ $username or old('username') }}" required autofocus placeholder="Masukkan NIM / Username">
+													
+													@if ($errors->has('username'))
 													<span class="help-block">
-														{{ $errors->first('password_confirmation') }}
+														{{ $errors->first('username') }}
 													</span>
 													@endif
 												</div>
@@ -81,7 +64,7 @@
 											<div class="form-group">
 												<div class="col-md-6 col-md-offset-4">
 													<button type="submit" class="btn btn-primary btn-flat">
-														Simpan
+														Reset Password
 													</button>
 												</div>
 											</div>
@@ -98,11 +81,10 @@
 		<script src="{{ asset('/js/jquery.min.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 		<div id="footer">
-		<a data-toggle="modal" href="{{ url('/about') }}" data-target="#about">{{ config('custom.app.abbr') }} {{ config('custom.app.version') }}</a><br/>
-		{{ config('custom.profil.singkatan') }}&nbsp;
-		{{ config('custom.profil.nama') }}<br/>
-		&copy; 2016 - 2017
+			<a data-toggle="modal" href="{{ url('/about') }}" data-target="#about">{{ config('custom.app.abbr') }} {{ config('custom.app.version') }}</a><br/>
+			{{ config('custom.profil.singkatan') }}&nbsp;
+			{{ config('custom.profil.nama') }}<br/>
+			&copy; 2016 - 2017
 		</div>
-		</body>
-		</html>
-				
+	</body>
+</html>
