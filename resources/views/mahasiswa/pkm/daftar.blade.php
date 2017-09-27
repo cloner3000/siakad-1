@@ -143,15 +143,7 @@ Pendaftaran PKM
 				{!! Form::open(['url' => url('/upload/image'), 'class' => 'form-inline', 'files' => true, 'autocomplete' => 'off', 'id' => 'upload']) !!}
 				@include('_partials/_foto', ['default_image' => 'b.png', 'foto' => $data -> foto])
 				{!! Form::close() !!}
-				<strong>Ketentuan Foto:</strong>
-				<ol type="a" style="padding-left: 12px">
-					<li>FOTO BERWARNA terbaru dengan ukuran file maks. 1MB</li>
-					<li>Foto bukan hasil edit:</li>
-					<li>Background warna merah;</li>
-					<li>Bagi laki-laki:  memakai  jas  almamater,  berdasi  (berwarna  gelap),  memakai  kemeja  putih  polos,  tidak memakai penutup kepala, tidak diperkenankan memakai asesoris, dan rambut harus rapi;</li>
-					<li>Bagi perempuan: memakai jas almamater, berjilbab hitam (tidak bercadar), berkemeja putih polos, tidak diperkenankan memakai asesoris berlebihan dan memakai sanggul;</li>
-					<li>Tidak berkacamata dan daun telinga harus terlihat (bagi laki-laki);</li>
-				</ol>
+				{!! config('custom.ketentuan.foto') !!}
 				@endif
 			</div>
 			<div class="col-sm-9">
