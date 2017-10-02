@@ -1723,6 +1723,50 @@ Route::get('/skripsi/{id}/edit', [
 	'uses' => 'DosenController@absensi'
 	]);	 */
 	
+	//Buku Dosen
+	Route::get('/dosen/buku', [
+	'as' => 'dosen.buku.index',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@index'
+	]);
+	Route::get('/dosen/{dosen}/buku', [
+	'as' => 'dosen.buku',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenController@buku'
+	]);
+	Route::get('/dosen/buku/create', [
+	'as' => 'dosen.buku.create',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@create'
+	]);
+	Route::post('/dosen/buku', [
+	'as' => 'dosen.buku.store',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@store'
+	]);
+	Route::get('/dosen/buku/{buku}/edit', [
+	'as' => 'dosen.buku.edit',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@edit'
+	]);		
+	Route::patch('/dosen/buku/{buku}', [
+	'as' => 'dosen.buku.update',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@update'
+	]);	
+	/*
+	Route::get('/dosen/{dosen}/buku/{buku}', [
+	'as' => 'dosen.buku.show',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@show'
+	]);	
+	*/
+	Route::get('/dosen/buku/export', [
+	'as' => 'dosen.buku.export',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenBukuController@export'
+	]);	
+	
 	//Jurnal Dosen
 	Route::get('/dosen/jurnal', [
 	'as' => 'dosen.jurnal.index',
