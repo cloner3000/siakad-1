@@ -1,4 +1,9 @@
 _*
+bin
+database
+src
+storage
+tests
 artisan
 composer*
 package.json
