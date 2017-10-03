@@ -173,9 +173,13 @@
 						<div class="form-group">
 							<div class="col-md-12">
 								<button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i> Masuk</button>
-								<a class="btn btn-link" href="{{ url('/password/username') }}">
-                                    Lupa Password?
-                                </a>
+								@if(config('custom.user.reset-password') == 0) 
+									<a style="text-decoration: line-through">Lupa Password?</a>
+								@else
+								<a href="{{ url('/password/username') }}">
+									Lupa Password?
+								</a>
+								@endif
 							</div>
 						</div>
 					</form>

@@ -103,6 +103,7 @@ Edit Pengaturan
 				<li><a href="#informasi" data-toggle="tab">Informasi</a></li>
 				<li><a href="#akta" data-toggle="tab">Akta Pendirian</a></li>
 				<li><a href="#kuesioner" data-toggle="tab">Kuesioner</a></li>
+				<li><a href="#user" data-toggle="tab">Pengguna</a></li>
 				<li><a href="#app" data-toggle="tab">Aplikasi</a></li>
 				<li><a href="#maintenis" data-toggle="tab">Maintenis</a></li>
 			</ul>
@@ -359,6 +360,22 @@ Edit Pengaturan
 						</div>
 					</div>
 				</div>
+				<div class="tab-pane fade form-horizontal" id="user">
+					<div class="form-group">
+						{!! Form::label('user.reset-password', 'Reset Password:', array('class' => 'col-sm-2 control-label')) !!}
+						<div class="col-sm-9">
+							<?php
+								foreach(['Tidak Aktif', 'Aktif'] as $k => $v) 
+								{
+									echo '<label class="radio-inline">';
+									echo '<input type="radio" name="user.reset-password" ';
+									if(isset($configs['user']['reset-password']) and $k == $configs['user']['reset-password']) echo 'checked="checked" ';
+									echo 'value="'. $k .'"> '. $v .'</label>';
+								}
+							?>
+						</div>
+					</div>
+				</div>
 				<div class="tab-pane fade form-horizontal" id="maintenis">
 					<div class="callout callout-info">
 						<h4>Informasi</h4>
@@ -375,13 +392,13 @@ Edit Pengaturan
 							<?php
 								foreach(['Up', 'Limited', 'Down'] as $k => $v) 
 								{
-								echo '<label class="radio-inline">';
-								echo '<input type="radio" name="status" ';
-								if(isset($status) and $k == $status) echo 'checked="checked" ';
-								echo 'value="'. $k .'"> '. $v .'</label>';
-							}
-						?>
-					</div>
+									echo '<label class="radio-inline">';
+									echo '<input type="radio" name="status" ';
+									if(isset($status) and $k == $status) echo 'checked="checked" ';
+									echo 'value="'. $k .'"> '. $v .'</label>';
+								}
+							?>
+						</div>
 					</div>
 					<div class="form-group">
 						{!! Form::label('roles', 'Akses:', array('class' => 'col-sm-2 control-label')) !!}
@@ -389,24 +406,24 @@ Edit Pengaturan
 							<?php
 								foreach($roles as $k => $v) 
 								{
-									echo '<label class="checkbox-inline">';
-									echo '<input type="checkbox" name="roles[]" ';
-									if(in_array($k, $checked_roles)) echo 'checked="checked" ';
-									echo 'value="'. $k .'"> '. $v .'</label>';
+								echo '<label class="checkbox-inline">';
+								echo '<input type="checkbox" name="roles[]" ';
+								if(in_array($k, $checked_roles)) echo 'checked="checked" ';
+								echo 'value="'. $k .'"> '. $v .'</label>';
 								}
-							?>
-						</div>
-					</div>
-					<div class="form-group">
-						{!! Form::label('message', 'Pesan:', array('class' => 'col-sm-2 control-label')) !!}
-						<div class="col-sm-8">
-							<textarea class="form-control" name="message" placeholder="..." cols="50" rows="5">{{ $message or '' }}</textarea>
-						</div>
-					</div>					
-				</div>
-			</div>
-			<hr/>
-			<button class="btn btn-warning btn-flat btn-lg" type="submit" id="submit-button"><i class="fa fa-floppy-o"></i> Simpan</button>
-		</form>
-	</div>
-@endsection																																															
+								?>
+								</div>
+								</div>
+								<div class="form-group">
+								{!! Form::label('message', 'Pesan:', array('class' => 'col-sm-2 control-label')) !!}
+								<div class="col-sm-8">
+								<textarea class="form-control" name="message" placeholder="..." cols="50" rows="5">{{ $message or '' }}</textarea>
+								</div>
+								</div>					
+								</div>
+								</div>
+								<hr/>
+								<button class="btn btn-warning btn-flat btn-lg" type="submit" id="submit-button"><i class="fa fa-floppy-o"></i> Simpan</button>
+								</form>
+								</div>
+								@endsection																																																							

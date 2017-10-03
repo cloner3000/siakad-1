@@ -29,6 +29,12 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-8 col-md-offset-2">
+								@if(isset($message))
+								<div class="callout callout-info">
+									<h4>Informasi</h4>
+									<p>{{ $message }}</p>
+								</div>
+								@endif
 								@if(Session::has('message'))
 								<div class="callout callout-info">
 									<h4>Informasi</h4>
@@ -58,7 +64,7 @@
 											<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 												<label class="col-md-4 control-label">Password Baru</label>
 												<div class="col-md-6">
-													<input type="password" class="form-control" name="password" required="required">
+													<input type="password" class="form-control" name="password" required="required" @if($locked) disabled @endif >
 													@if ($errors->has('password'))
 													<span class="help-block">
 														{{ $errors->first('password') }}
@@ -70,7 +76,7 @@
 											<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 												<label class="col-md-4 control-label">Ulangi Password Baru</label>
 												<div class="col-md-6">
-													<input type="password" class="form-control" name="password_confirmation"  required="required">
+													<input type="password" class="form-control" name="password_confirmation"  required="required" @if($locked) disabled @endif >
 													@if ($errors->has('password_confirmation'))
 													<span class="help-block">
 														{{ $errors->first('password_confirmation') }}
@@ -80,7 +86,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-md-6 col-md-offset-4">
-													<button type="submit" class="btn btn-primary btn-flat">
+													<button type="submit" class="btn btn-primary btn-flat" @if($locked) disabled @endif >
 														Simpan
 													</button>
 												</div>

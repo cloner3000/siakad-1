@@ -29,6 +29,12 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-8 col-md-offset-2">
+								@if(isset($message))
+								<div class="callout callout-info">
+									<h4>Informasi</h4>
+									<p>{{ $message }}</p>
+								</div>
+								@endif
 								@if(Session::has('message'))
 								<div class="callout callout-info">
 									<h4>Informasi</h4>
@@ -52,8 +58,7 @@
 												<label for="username" class="col-md-4 control-label">Username</label>
 												
 												<div class="col-md-6">
-													<input id="username" type="text" class="form-control" name="username" value="{{ $username or old('username') }}" required autofocus placeholder="Masukkan NIM / Username">
-													
+													<input id="username" type="text" class="form-control" name="username" value="{{ $username or old('username') }}" required autofocus placeholder="Masukkan NIM / Username" @if($locked) disabled @endif >
 													@if ($errors->has('username'))
 													<span class="help-block">
 														{{ $errors->first('username') }}
@@ -63,7 +68,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-md-6 col-md-offset-4">
-													<button type="submit" class="btn btn-primary btn-flat">
+													<button type="submit" class="btn btn-primary btn-flat" @if($locked) disabled @endif >
 														Reset Password
 													</button>
 												</div>
