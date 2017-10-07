@@ -1,20 +1,20 @@
 @extends('app')
 
 @section('title')
-Riwayat Pendidikan Dosen | {{ $dosen -> nama }}
+Riwayat Fungsional Dosen {{ $dosen -> nama }}
 @endsection
 
 @section('header')
 <section class="content-header">
 	<h1>
 		Dosen
-		<small>Pendidikan</small>
+		<small>Fungsional</small>
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
 		<li><a href="{{ url('/dosen/') }}"> Dosen</a></li>
 		<li><a href="{{ url('/dosen/' . $dosen -> id) }}"> {{ $dosen -> nama }}</a></li>
-		<li class="active">Pendidikan</li>
+		<li class="active">Riwayat Fungsional</li>
 	</ol>
 </section>
 @endsection
@@ -57,9 +57,9 @@ Riwayat Pendidikan Dosen | {{ $dosen -> nama }}
 
 <div class="box box-danger">
 	<div class="box-header with-border">
-		<h3 class="box-title">Riwayat Pendidikan</h3>
+		<h3 class="box-title">Riwayat Fungsional</h3>
 		<div class="box-tools">
-			<a href="{{ route('dosen.pendidikan.create', $dosen -> id) }}" class="btn btn-primary btn-xs btn-flat"><i class="fa fa-plus"></i> Tambah Pendidikan</a>
+			<a href="{{ route('dosen.fungsional.create', $dosen -> id) }}" class="btn btn-primary btn-xs btn-flat"><i class="fa fa-plus"></i> Tambah Fungsional</a>
 		</div>
 	</div>
 	<div class="box-body">
@@ -67,47 +67,36 @@ Riwayat Pendidikan Dosen | {{ $dosen -> nama }}
 			<thead>
 				<tr>
 					<th width="20px">No.</th>
-					<th>Bidang Studi</th>
-					<th>Jenjang</th>
-					<th>Gelar</th>
-					<th>Perguruan Tinggi</th>
-					<th>Fakultas</th>
-					<th>Tahun Lulus</th>
-					<th>SKS</th>
-					<th>IPK</th>
+					<th>Jabatan</th>
+					<th>SK Jabatan</th>
+					<th>TMT Jabatan</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				@if(!$pendidikan -> count())
+				@if(!$fungsional -> count())
 				<tr>
-					<td colspan="10" align="center">Belum ada data pendidikan</td>
+					<td colspan="10" align="center">Belum ada data fungsional</td>
 				</tr>
 				@else
 				<?php 
 					$c=1; 
-					$jenjang = config('custom.pilihan.pendidikanDosen');
 				?>
-				@foreach($pendidikan as $b)
+				@foreach($fungsional as $b)
 				<tr>
 					<td>{{ $c }}</td>
-					<td>{{ $b -> bidangStudi }}</td>
-					<td>{{ $jenjang[$b -> jenjang] }}</td>
-					<td>{{ $b -> gelar }}</td>
-					<td>{{ $b -> perguruanTinggi }}</td>
-					<td>{{ $b -> fakultas }}</td>
-					<td>{{ $b -> tahunLulus }}</td>
-					<td>{{ $b -> sks }}</td>
-					<td>{{ $b -> ipk }}</td>
+					<td>{{ config('custom.pilihan.jabatan_fungsional')[$b -> jabatan] }}</td>
+					<td>{{ $b -> sk }}</td>
+					<td>{{ $b -> tmt }}</td>
 					<td>
-						<a class="btn btn-warning btn-xs btn-flat" href="{{ route('dosen.pendidikan.edit', [$dosen -> id, $b -> id]) }}"><i class=" fa fa-edit"></i> Edit</a>
+						<a class="btn btn-warning btn-xs btn-flat" href="{{ route('dosen.fungsional.edit', [$dosen -> id, $b -> id]) }}"><i class=" fa fa-edit"></i> Edit</a>
 					</td>
 				</tr>
 				<?php $c++; ?>
 				@endforeach
-			@endif
+				@endif
 			</tbody>
-			</table>
-			</div>	
-			</div>	
-			@endsection																																																				
+		</table>
+	</div>	
+</div>	
+@endsection																																																							

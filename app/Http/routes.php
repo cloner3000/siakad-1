@@ -1906,8 +1906,118 @@ Route::get('/skripsi/{id}/edit', [
 	'uses' => 'DosenPendidikanController@show'
 	]);	
 	
+	//Riwayat Fungsional Dosen
+	Route::get('/dosen/fungsional', [
+	'as' => 'dosen.fungsional.index',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@index'
+	]);
+	Route::get('/dosen/{dosen}/fungsional', [
+	'as' => 'dosen.fungsional',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@riwayat'
+	]);
+	Route::get('/dosen/{dosen}/fungsional/create', [
+	'as' => 'dosen.fungsional.create',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@create'
+	]);
+	Route::post('/dosen/{dosen}/fungsional', [
+	'as' => 'dosen.fungsional.store',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@store'
+	]);
+	Route::get('/dosen/{dosen}/fungsional/{fungsional}/edit', [
+	'as' => 'dosen.fungsional.edit',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@edit'
+	]);		
+	Route::patch('/dosen/{dosen}/fungsional/{fungsional}', [
+	'as' => 'dosen.fungsional.update',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@update'
+	]);	
+	Route::get('/dosen/{dosen}/fungsional/{fungsional}', [
+	'as' => 'dosen.fungsional.show',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenFungsionalController@show'
+	]);	
 	
+	//Riwayat Kepangkatan Dosen
+	Route::get('/dosen/kepangkatan', [
+	'as' => 'dosen.kepangkatan.index',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@index'
+	]);
+	Route::get('/dosen/{dosen}/kepangkatan', [
+	'as' => 'dosen.kepangkatan',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@riwayat'
+	]);
+	Route::get('/dosen/{dosen}/kepangkatan/create', [
+	'as' => 'dosen.kepangkatan.create',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@create'
+	]);
+	Route::post('/dosen/{dosen}/kepangkatan', [
+	'as' => 'dosen.kepangkatan.store',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@store'
+	]);
+	Route::get('/dosen/{dosen}/kepangkatan/{kepangkatan}/edit', [
+	'as' => 'dosen.kepangkatan.edit',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@edit'
+	]);		
+	Route::patch('/dosen/{dosen}/kepangkatan/{kepangkatan}', [
+	'as' => 'dosen.kepangkatan.update',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@update'
+	]);	
+	Route::get('/dosen/{dosen}/kepangkatan/{kepangkatan}', [
+	'as' => 'dosen.kepangkatan.show',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenKepangkatanController@show'
+	]);	
 	
+	//Riwayat Sertifikasi Dosen
+	Route::get('/dosen/sertifikasi', [
+	'as' => 'dosen.sertifikasi.index',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@index'
+	]);
+	Route::get('/dosen/{dosen}/sertifikasi', [
+	'as' => 'dosen.sertifikasi',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@riwayat'
+	]);
+	Route::get('/dosen/{dosen}/sertifikasi/create', [
+	'as' => 'dosen.sertifikasi.create',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@create'
+	]);
+	Route::post('/dosen/{dosen}/sertifikasi', [
+	'as' => 'dosen.sertifikasi.store',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@store'
+	]);
+	Route::get('/dosen/{dosen}/sertifikasi/{sertifikasi}/edit', [
+	'as' => 'dosen.sertifikasi.edit',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@edit'
+	]);		
+	Route::patch('/dosen/{dosen}/sertifikasi/{sertifikasi}', [
+	'as' => 'dosen.sertifikasi.update',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@update'
+	]);	
+	Route::get('/dosen/{dosen}/sertifikasi/{sertifikasi}', [
+	'as' => 'dosen.sertifikasi.show',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenSertifikasiController@show'
+	]);	
+	
+	//
 	Route::get('/profildosen', [
 	'as' => 'dosen.public',
 	'roles' => ['keuangan / administrasi', 'prodi', 'administrator'],
@@ -2102,6 +2212,18 @@ Route::get('/skripsi/{id}/edit', [
 	]);
 	
 	//Dosen
+	
+	Route::get('/dosen/export', [
+	'as' => 'dosen.export',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenController@getExport'
+	]);
+	Route::post('/dosen/export', [
+	'as' => 'dosen.export',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenController@postExport'
+	]);	
+	
 	Route::get('/perwalian', [
 	'as' => 'dosen.custodian',
 	'roles' => ['dosen'],

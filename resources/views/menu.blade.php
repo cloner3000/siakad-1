@@ -119,8 +119,11 @@
 			<ul class="treeview-menu">
 				<li><a href="{{ url('/dosen') }}"> Daftar Dosen</a></li>
 				<li><a href="{{ url('/dosen/absensi') }}"> Absensi Dosen</a></li>
-				<li><a href="{{ url('/dosen/penugasan') }}"> Penugasan Dosen</a></li>
-				<li><a href="{{ url('/dosen/pendidikan') }}"> Pendidikan Dosen</a></li>
+				<li><a href="{{ url('/dosen/pendidikan') }}"> Riwayat Pendidikan</a></li>
+				<li><a href="{{ url('/dosen/sertifikasi') }}"> Riwayat Sertifikasi</a></li>
+				<li><a href="{{ url('/dosen/penugasan') }}"> Riwayat Penugasan</a></li>
+				<li><a href="{{ url('/dosen/fungsional') }}"> Riwayat Fungsional</a></li>
+				<li><a href="{{ url('/dosen/kepangkatan') }}"> Riwayat Kepangkatan</a></li>
 			</ul>
 		</li>
 		<li class="treeview">
@@ -281,10 +284,11 @@
 				<ul class="treeview-menu">
 					<li><a href="{{ url('/dosen') }}"> Daftar Dosen</a></li>
 					<li><a href="{{ url('/dosen/absensi') }}"> Absensi Dosen</a></li>
-					<li><a href="{{ url('/dosen/penugasan') }}"> Penugasan Dosen</a></li>
-					<li><a href="{{ url('/dosen/pendidikan') }}"> Pendidikan Dosen</a></li>
-					<!--li><a href="{{ url('/dosen/absensi/create') }}"> Tambah Absensi Dosen</a></li-->
-					<!--li><a href="{{ url('/dosen/create') }}"> Tambah Dosen Baru</a></li-->
+				<li><a href="{{ url('/dosen/pendidikan') }}"> Riwayat Pendidikan</a></li>
+				<li><a href="{{ url('/dosen/sertifikasi') }}"> Riwayat Sertifikasi</a></li>
+				<li><a href="{{ url('/dosen/penugasan') }}"> Riwayat Penugasan</a></li>
+				<li><a href="{{ url('/dosen/fungsional') }}"> Riwayat Fungsional</a></li>
+				<li><a href="{{ url('/dosen/kepangkatan') }}"> Riwayat Kepangkatan</a></li>
 				</ul>
 			</li>
 			<li class="treeview">
@@ -385,7 +389,7 @@
 					<li class="treeview">
 						<a href="#" ><span>Dosen</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
 						<ul class="treeview-menu">
-							<li><a href="{{ url('#') }}"><span>Dosen</span></a></li>
+							<li><a href="{{ url('/dosen/export') }}"><span>Dosen</span></a></li>
 							<li><a href="{{ url('#') }}"><span>Non Dosen</span></a></li>
 							<li><a href="{{ url('/dosen/penugasan') }}"><span>Tugas Dosen</span></a></li>
 						</ul>

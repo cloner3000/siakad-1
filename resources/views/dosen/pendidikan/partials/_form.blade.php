@@ -1,3 +1,12 @@
+@section('scripts2')
+<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/jtsage-datebox.min.js') }}"></script>
+<script src="{{ asset('js/jtsage-datebox.i18n.id.utf8.min.js') }}"></script>
+<script src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
+@endsection
+@section('styles2')
+<link href="{{ asset('css/jtsage-datebox.min.css') }}" rel="stylesheet">
+@endsection
 
 <div class="form-group">
 	{!! Form::label('', 'Nama:', array('class' => 'col-sm-3 control-label')) !!}
@@ -14,7 +23,7 @@
 <div class="form-group">
 	{!! Form::label('jenjang', 'Jenjang:', array('class' => 'col-sm-3 control-label')) !!}
 	<div class="col-sm-2">
-		{!! Form::text('jenjang', null, array('class' => 'form-control', 'placeholder' => 'Jenjang')) !!}
+		{!! Form::select('jenjang', config('custom.pilihan.pendidikanDosen'), null, array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="form-group">
@@ -42,8 +51,20 @@
 	</div>
 </div>
 <div class="form-group">
+	{!! Form::label('nomor_ijasah', 'Nomor Ijasah:', array('class' => 'col-sm-3 control-label')) !!}
+	<div class="col-sm-4">
+		{!! Form::text('nomor_ijasah', null, array('class' => 'form-control', 'placeholder' => 'Nomor Ijasah')) !!}
+	</div>
+</div>
+<div class="form-group">
+	{!! Form::label('tgl_ijasah', 'Tanggal Ijasah:', array('class' => 'col-sm-3 control-label')) !!}
+	<div class="col-sm-3">
+		{!! Form::text('tgl_ijasah', null, array('class' => 'form-control', 'placeholder' => 'Tanggal Ijasah', 'data-role' => "datebox", 'data-options' => '{"mode":"datebox", "useTodayButton":"true"}')) !!}
+	</div>
+</div>
+<div class="form-group">
 	{!! Form::label('sks', 'SKS:', array('class' => 'col-sm-3 control-label')) !!}
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 		{!! Form::text('sks', null, array('class' => 'form-control', 'placeholder' => 'Jumlah SKS Lulus')) !!}
 	</div>
 </div>

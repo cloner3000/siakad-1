@@ -1,18 +1,19 @@
 @extends('app')
 
 @section('title')
-Daftar Pendidikan Dosen
+Riwayat Pendidikan Dosen
 @endsection
 
 @section('header')
 <section class="content-header">
 	<h1>
-		Pendidikan Dosen
-		<small>Daftar</small>
+		Dosen
+		<small>Riwayat Pendidikan</small>
 	</h1>		
 	<ol class="breadcrumb">
 		<li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Daftar Pendidikan Dosen</li>
+		<li><a href="{{ url('/dosen') }}">Dosen</a></li>
+		<li class="active">Riwayat Pendidikan</li>
 	</ol>
 </section>
 @endsection
@@ -20,13 +21,16 @@ Daftar Pendidikan Dosen
 @section('content')
 <div class="box">
 	<div class="box-header with-border">
-		<h3 class="box-title">Daftar Pendidikan Dosen</h3>
+		<h3 class="box-title">Riwayat Pendidikan Dosen</h3>
 	</div>
 	<div class="box-body">
 		@if(!$pendidikan->count())
 		<p class="text-muted">Belum ada data</p>
 		@else
-		<?php $c=1; ?>
+		<?php 
+			$c=1; 
+			$jenjang = config('custom.pilihan.pendidikanDosen');
+		?>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
@@ -49,7 +53,7 @@ Daftar Pendidikan Dosen
 					<td>{{ $c }}</td>
 					<td>{{ $b -> dosen }}</td>
 					<td>{{ $b -> bidangStudi }}</td>
-					<td>{{ $b -> jenjang }}</td>
+					<td>{{ $jenjang[$b -> jenjang] }}</td>
 					<td>{{ $b -> gelar }}</td>
 					<td>{{ $b -> perguruanTinggi }}</td>
 					<td>{{ $b -> fakultas }}</td>
@@ -67,4 +71,4 @@ Daftar Pendidikan Dosen
 		@endif
 	</div>
 </div>
-@endsection												
+@endsection																

@@ -55,13 +55,20 @@ Data Dosen - {{ $dosen -> nama}}
 					<div class="form-group">
 						<label class="col-sm-3 control-label">Nama:</label>
 						<div class="col-sm-9">
-							<p class="form-control-static">{{ $dosen->nama }}</p>
+							<p class="form-control-static">{{ $dosen -> gelar_depan }} {{ trim($dosen -> nama) }}@if(isset($dosen -> gelar_belakang)), {{ $dosen -> gelar_belakang }} @endif</p>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label">NIDN:</label>
 						<div class="col-sm-9">
 							<p class="form-control-static">{{ $dosen->NIDN }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">PNS:</label>
+						<div class="col-sm-9">
+							<?php $pns = [1 => 'PNS', 2 => 'Non PNS']; ?>
+							<p class="form-control-static">{{ $pns[$dosen -> pns] }}</p>
 						</div>
 					</div>
 					<div class="form-group">
@@ -73,8 +80,9 @@ Data Dosen - {{ $dosen -> nama}}
 					<div class="form-group">
 						<label class="col-sm-3 control-label">Golongan:</label>
 						<div class="col-sm-9">
-							<p class="form-control-static">{{ $dosen->golongan }}</p>
-							<p class="form-control-static">{{ $dosen->kepangkatan }}</p>
+							<p class="form-control-static">
+							
+							</p>
 						</div>
 					</div>
 					<div class="form-group">
@@ -84,11 +92,91 @@ Data Dosen - {{ $dosen -> nama}}
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label">No. KTP/Paspor:</label>
+						<label class="col-sm-3 control-label">NIK:</label>
 						<div class="col-sm-9">
-							<p class="form-control-static">{{ $dosen->noIdentitas }}</p>
+							<p class="form-control-static">{{ $dosen->NIK }}</p>
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">NPWP:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ $dosen->npwp }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Jabatan Fungsional:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">SK Awal Dosen:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ $dosen -> no_sk_awal }} <strong>TMT:</strong> {{ $dosen -> tmt_sk_awal }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">SK Terbaru Dosen:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ $dosen -> no_sk_terbaru }} <strong>TMT:</strong> {{ $dosen -> tmt_sk_terbaru }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Instansi yang mengangkat:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ config('custom.pilihan.emis.instansi')[$dosen -> instansi] }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Status Tugas:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">@if(isset(config('custom.pilihan.statusDosen')[$dosen -> statusDosen])){{ config('custom.pilihan.statusDosen')[$dosen -> statusDosen] }}@endif</p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Status Keaktifan (EMIS):</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ config('custom.pilihan.emis.status_keaktifan')[$dosen -> status_keaktifan] }}</p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Jabatan Tambahan:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ config('custom.pilihan.emis.jabatan_tambahan')[$dosen -> jabatan_tambahan] }}</p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Status Kepegawaian:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ config('custom.pilihan.statusKepegawaian')[$dosen -> statusKepegawaian] }}</p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Status Sertifikasi:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static"></p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Tahun Lulus Sertifikasi:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static"></p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Tunjangan Profesi:</label>
+						<div class="col-sm-9">
+							<?php $tunjangan = ['Belum menerima', 'Sudah menerima']; ?>
+							<p class="form-control-static">{{ $tunjangan[$dosen -> tunjangan_profesi] }}</p>
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Besar Tunjangan Profesi:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">Rp {{ number_format($dosen -> besar_tunjangan_profesi, 2, ',', '.') }}</p>
+						</div>
+					</div>	
+					<hr/>
 					<div class="form-group">
 						<label class="col-sm-3 control-label">TTL:</label>
 						<div class="col-sm-9">
@@ -99,6 +187,12 @@ Data Dosen - {{ $dosen -> nama}}
 						<label class="col-sm-3 control-label">Jenis Kelamin:</label>
 						<div class="col-sm-9">
 							<p class="form-control-static">{{ isset($dosen -> jenisKelamin) ? config('custom.pilihan.jenisKelamin')[$dosen -> jenisKelamin] : '' }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Nama Ibu:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ $dosen -> nama_ibu }}</p>
 						</div>
 					</div>
 					<div class="form-group">
@@ -120,6 +214,18 @@ Data Dosen - {{ $dosen -> nama}}
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-sm-3 control-label">Kabupaten:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ $dosen -> kabupaten }}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Provinsi:</label>
+						<div class="col-sm-9">
+							<p class="form-control-static">{{ config('custom.pilihan.emis.provinsi')[$dosen -> provinsi] }}</p>
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-sm-3 control-label">Telepon:</label>
 						<div class="col-sm-9">
 							<p class="form-control-static">{{ $dosen -> telp }}</p>
@@ -131,21 +237,9 @@ Data Dosen - {{ $dosen -> nama}}
 							<p class="form-control-static">{{ $dosen -> email }}</p>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Status:</label>
-						<div class="col-sm-9">
-							<p class="form-control-static">@if(isset(config('custom.pilihan.statusDosen')[$dosen -> statusDosen])){{ config('custom.pilihan.statusDosen')[$dosen -> statusDosen] }}@endif</p>
-						</div>
-					</div>	
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Status Kepegawaian:</label>
-						<div class="col-sm-9">
-							<p class="form-control-static">@if(isset(config('custom.pilihan.statusKepegawaian')[$dosen -> statusKepegawaian])){{ config('custom.pilihan.statusKepegawaian')[$dosen -> statusKepegawaian] }}@endif</p>
-						</div>
-					</div>		
 				</div>				
 			</div>				
 		</div>				
 	</div>				
 </div>				
-@endsection
+@endsection											

@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-Daftar Penugasan Dosen
+Riwayat Penugasan Dosen
 @endsection
 
 @section('scripts')
@@ -15,12 +15,13 @@ Daftar Penugasan Dosen
 @section('header')
 <section class="content-header">
 	<h1>
-		Penugasan Dosen
-		<small>Daftar</small>
+		Dosen
+		<small>Riwayat Penugasan </small>
 	</h1>		
 	<ol class="breadcrumb">
 		<li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Daftar Penugasan Dosen</li>
+		<li><a href="{{ url('/dosen') }}">Dosen</a></li>
+		<li class="active">Riwayat Penugasan</li>
 	</ol>
 </section>
 @endsection
@@ -54,7 +55,7 @@ Daftar Penugasan Dosen
 
 <div class="box">
 	<div class="box-header with-border">
-		<h3 class="box-title">Daftar Penugasan Dosen</h3>
+		<h3 class="box-title">Riwayat Penugasan Dosen</h3>
 		<div class="box-tools">
 			<a href="{{ route('dosen.penugasan.export') }}" class="btn btn-success btn-xs btn-flat" title="Export Data Penugasan Dosen"><i class="fa fa-file-excel-o"></i> Export Penugasan Dosen</a>
 			<a href="{{ route('dosen.penugasan.create') }}" class="btn btn-primary btn-xs btn-flat" title="Input Data Penugasan Dosen"><i class="fa fa-plus"></i> Tambah Penugasan Dosen</a>
