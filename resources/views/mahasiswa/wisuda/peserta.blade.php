@@ -34,6 +34,7 @@ Peserta Wisuda {{ $wisuda -> nama }}
 					<th>No</th>
 					<th>NIM</th>
 					<th>Nama</th>
+					<th>Tinggi Badan (cm)</th>
 					<th>PRODI</th>
 					<th>Program</th>
 					<th>Judul Skripsi</th>
@@ -47,6 +48,7 @@ Peserta Wisuda {{ $wisuda -> nama }}
 					<td>{{ $c }}</td>
 					<td>{{ $g -> NIM }}</td>
 					<td>{{ $g -> nama }}</td>
+					<td>{{ $g -> tinggi_badan }}</td>
 					<td>{{ $g -> prodi -> strata }} {{ $g -> prodi -> nama }}</td>
 					<td>{{ $g -> kelas -> nama }}</td>
 					<td>{{ $g -> skripsi -> judul }}</td>

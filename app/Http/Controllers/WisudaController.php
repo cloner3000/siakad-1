@@ -38,6 +38,7 @@
 			if($mahasiswa['id_wil'] != '') 
 			{
 				$wilayah2 = \Siakad\Wilayah::dataKecamatan($mahasiswa['id_wil']) -> first();
+				if($wilayah2)
 				$alamat .= trim($wilayah2 -> kec) . ' ' . trim($wilayah2 -> kab) . ' ' . trim($wilayah2 -> prov) . ' ';
 			}
 			if($mahasiswa['kodePos'] != '') $alamat .= $mahasiswa['kodePos'];
@@ -58,6 +59,7 @@
 			if($mahasiswa['id_wil'] != '') 
 			{
 				$wilayah2 = \Siakad\Wilayah::dataKecamatan($mahasiswa['id_wil']) -> first();
+				if($wilayah2)
 				$alamat .= trim($wilayah2 -> kec) . ' ' . trim($wilayah2 -> kab) . ' ' . trim($wilayah2 -> prov) . ' ';
 			}
 			if($mahasiswa['kodePos'] != '') $alamat .= $mahasiswa['kodePos'];
@@ -95,6 +97,7 @@
 				if($data['id_wil'] != '') 
 				{
 					$wilayah2 = \Siakad\Wilayah::dataKecamatan($data['id_wil']) -> first();
+					if($wilayah2)
 					$alamat .= trim($wilayah2 -> kec) . ' ' . trim($wilayah2 -> kab) . ' ' . trim($wilayah2 -> prov) . ' ';
 				}
 				if($data['kodePos'] != '') $alamat .= $data['kodePos'];
@@ -180,6 +183,7 @@
 			if($data['id_wil'] != '') 
 			{
 				$wilayah2 = \Siakad\Wilayah::dataKecamatan($data['id_wil']) -> first();
+				if($wilayah2)
 				$alamat .= trim($wilayah2 -> kec) . ' ' . trim($wilayah2 -> kab) . ' ' . trim($wilayah2 -> prov) . ' ';
 			}
 			if($data['kodePos'] != '') $alamat .= $data['kodePos'];

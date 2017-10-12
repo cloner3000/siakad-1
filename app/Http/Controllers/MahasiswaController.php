@@ -534,6 +534,7 @@
 		if($mahasiswa['id_wil'] != '') 
 		{
 		$data = \Siakad\Wilayah::dataKecamatan($mahasiswa['id_wil']) -> first();
+					if($data)
 		$alamat .= trim($data -> kec) . ' ' . trim($data -> kab) . ' ' . trim($data -> prov) . ' ';
 		}
 		

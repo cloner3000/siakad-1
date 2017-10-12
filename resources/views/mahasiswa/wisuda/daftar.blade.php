@@ -175,6 +175,19 @@ Pendaftaran Wisuda
 					</div>
 				</div>
 				<div class="form-group">
+					<label class="col-sm-2 control-label">Tinggi Badan</label>
+					<div class="col-sm-9">
+						@if($show)
+						<p class="form-control-static">{{ $data -> tinggi_badan }}</p>
+						@else
+						<div class="input-group">
+						{!! Form::text('tinggi_badan', $data -> tinggi_badan, array('class' => 'form-control', 'placeholder' => 'Tinggi Badan', 'required' => 'required')) !!}
+						<span class="input-group-addon">cm</span>
+</div>
+						@endif
+					</div>
+				</div>
+				<div class="form-group">
 					{!! Form::label('hp', 'No. HP', array('class' => 'col-sm-2 control-label')) !!}
 					<div class="col-sm-5">
 						@if($show)
