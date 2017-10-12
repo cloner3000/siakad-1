@@ -1723,6 +1723,48 @@ Route::get('/skripsi/{id}/edit', [
 	'uses' => 'DosenController@absensi'
 	]);	 */
 	
+	//Penelitian Dosen
+	Route::get('/dosen/penelitian', [
+	'as' => 'dosen.penelitian.index',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@index'
+	]);
+	Route::get('/dosen/{dosen}/penelitian', [
+	'as' => 'dosen.penelitian',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@riwayat'
+	]);
+	Route::get('/dosen/penelitian/create', [
+	'as' => 'dosen.penelitian.create',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@create'
+	]);
+	Route::post('/dosen/penelitian', [
+	'as' => 'dosen.penelitian.store',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@store'
+	]);
+	Route::get('/dosen/penelitian/{penelitian}/edit', [
+	'as' => 'dosen.penelitian.edit',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@edit'
+	]);		
+	Route::patch('/dosen/penelitian/{penelitian}', [
+	'as' => 'dosen.penelitian.update',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@update'
+	]);	
+	Route::get('/dosen/penelitian/{penelitian}', [
+	'as' => 'dosen.penelitian.show',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@show'
+	]);	
+	Route::get('/dosen/penelitian/export', [
+	'as' => 'dosen.penelitian.export',
+	'roles' => ['administrator', 'akademik'],
+	'uses' => 'DosenPenelitianController@export'
+	]);
+
 	//Buku Dosen
 	Route::get('/dosen/buku', [
 	'as' => 'dosen.buku.index',
@@ -1754,13 +1796,6 @@ Route::get('/skripsi/{id}/edit', [
 	'roles' => ['administrator', 'akademik'],
 	'uses' => 'DosenBukuController@update'
 	]);	
-	/*
-	Route::get('/dosen/{dosen}/buku/{buku}', [
-	'as' => 'dosen.buku.show',
-	'roles' => ['administrator', 'akademik'],
-	'uses' => 'DosenBukuController@show'
-	]);	
-	*/
 	Route::get('/dosen/buku/export', [
 	'as' => 'dosen.buku.export',
 	'roles' => ['administrator', 'akademik'],
@@ -1798,13 +1833,6 @@ Route::get('/skripsi/{id}/edit', [
 	'roles' => ['administrator', 'akademik'],
 	'uses' => 'DosenJurnalController@update'
 	]);	
-	/*
-	Route::get('/dosen/{dosen}/jurnal/{jurnal}', [
-	'as' => 'dosen.jurnal.show',
-	'roles' => ['administrator', 'akademik'],
-	'uses' => 'DosenJurnalController@show'
-	]);	
-	*/
 	Route::get('/dosen/jurnal/export', [
 	'as' => 'dosen.jurnal.export',
 	'roles' => ['administrator', 'akademik'],
@@ -1851,13 +1879,6 @@ Route::get('/skripsi/{id}/edit', [
 	'roles' => ['administrator', 'akademik'],
 	'uses' => 'DosenPenugasanController@destroy'
 	]);		
-	/*
-	Route::get('/dosen/penugasan/{penugasan}', [
-	'as' => 'dosen.penugasan.show',
-	'roles' => ['administrator', 'akademik'],
-	'uses' => 'DosenPenugasanController@show'
-	]);	
-	*/
 	Route::get('/dosen/penugasan/export', [
 	'as' => 'dosen.penugasan.export',
 	'roles' => ['administrator', 'akademik'],
@@ -2016,6 +2037,7 @@ Route::get('/skripsi/{id}/edit', [
 	'roles' => ['administrator', 'akademik'],
 	'uses' => 'DosenSertifikasiController@show'
 	]);	
+	
 	
 	//
 	Route::get('/profildosen', [

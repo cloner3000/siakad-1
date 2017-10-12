@@ -726,8 +726,8 @@
 				
 			}) -> download('xlsx');
 			return;
-			
 		}
+		
 	private function numberToLetter($number, $base = 'base_4'){
 	$number = intval($number);
 	if($base === 'base_100'){

@@ -91,10 +91,10 @@
 			* @param  int  $id
 			* @return \Illuminate\Http\Response
 		*/
-		public function destroy($dosen_id, $jurnal_id)
+		public function destroy($jurnal_id)
 		{
 			DosenJurnal::find($jurnal_id) -> delete();		
-			return Redirect::route('dosen.jurnal', $dosen_id) -> with('message', 'Data Jurnal Dosen berhasil dihapus.');
+			return Redirect::route('dosen.jurnal.index', $dosen_id) -> with('message', 'Data Jurnal Dosen berhasil dihapus.');
 		}
 		
 		public function export()

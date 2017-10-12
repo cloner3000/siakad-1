@@ -47,7 +47,7 @@
 <div class="form-group">
 	{!! Form::label('tahunLulus', 'Tahun Lulus:', array('class' => 'col-sm-3 control-label')) !!}
 	<div class="col-sm-2">
-		{!! Form::text('tahunLulus', null, array('class' => 'form-control', 'placeholder' => 'Tahun Lulus')) !!}
+		<input class="form-control" placeholder="Tahun Lulus" name="tahunLulus" type="number" value="{{ $pendidikan -> tahunLulus or ''}}" id="tahunLulus" min="1900" max="3000">
 	</div>
 </div>
 <div class="form-group">

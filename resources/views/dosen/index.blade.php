@@ -58,7 +58,7 @@ Daftar Dosen
 	$total = $dosen -> total();
 	$n = ($dosen -> currentPage() - 1) * $per_page;
 	$last = $n + $per_page > $total ? $total : $n + $per_page;
-	?>
+?>
 <div class="box">
 	<div class="box-header with-border">
 		<h3 class="box-title">Daftar Dosen <small>{{ $n + 1 }} - {{  $last }} dari {{ $total }}</small></h3>
@@ -89,7 +89,11 @@ Daftar Dosen
 				<tr>
 					<td>{{ $n }}</td>
 					<td>{{ $g -> kode }}</td>
-					<td><a href="{{ route('dosen.show', $g->id) }}" title="Tampilkan detail data Dosen">{{ $g -> nama }}</a></td>
+					<td>
+						<a href="{{ route('dosen.show', $g->id) }}" title="Tampilkan detail data Dosen">
+							{{ $g -> gelar_depan }} {{ trim($g -> nama) }}@if(isset($g -> gelar_belakang)), {{ $g -> gelar_belakang }} @endif
+						</a>
+					</td>
 					<td>{{ $g -> NIDN }}</td>
 					<td>{{ $g -> NIY }}</td>
 					<td>{{ $g -> jenisKelamin }}</td>
@@ -107,16 +111,16 @@ Daftar Dosen
 							@if(!$public)
 							<a href="{{ route('dosen.penugasan', $g->id) }}" class="btn btn-info btn-xs btn-flat" title="Penugasan Dosen"><i class="fa fa-mouse-pointer"></i></a>
 							<a href="{{ route('dosen.edit', $g->id) }}" class="btn btn-warning btn-xs btn-flat" title="Edit data dosen"><i class="fa fa-pencil-square-o"></i></a>
-							<a href="{{ route('dosen.delete', $g->id) }}" class="btn btn-danger btn-xs btn-delete has-confirmation btn-flat" title="Hapus data dosen"><i class="fa fa-trash"></i></a>
-							@endif
+						<a href="{{ route('dosen.delete', $g->id) }}" class="btn btn-danger btn-xs btn-delete has-confirmation btn-flat" title="Hapus data dosen"><i class="fa fa-trash"></i></a>
+						@endif
 						</div>
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
-		{!! $dosen -> render() !!}
-	</div>
-</div>
-@endif
-@endsection																						
+						</td>
+						</tr>
+						@endforeach
+						</tbody>
+						</table>
+						{!! $dosen -> render() !!}
+						</div>
+						</div>
+						@endif
+						@endsection																												

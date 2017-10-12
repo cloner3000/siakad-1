@@ -405,11 +405,9 @@
 					<li class="treeview">
 						<a href="#" ><span>Penelitian Dosen</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
 						<ul class="treeview-menu">
-							<li><a href="{{ url('/dosen/jurnal') }}"> Jurnal Dosen</a></li>
-							<li><a href="{{ url('/dosen/buku') }}"><span>Buku Dosen</span></a></li>
-							<li><a href="{{ url('#') }}"><span>Penelitian</span></a></li>
-							<li><a href="{{ url('#') }}"><span>Jurnal</span></a></li>
-							<li><a href="{{ url('#') }}"><span>Buku</span></a></li>
+							<li><a href="{{ url('/dosen/jurnal') }}"> Jurnal</a></li>
+							<li><a href="{{ url('/dosen/buku') }}"><span>Buku</span></a></li>
+							<li><a href="{{ url('/dosen/penelitian') }}"><span>Penelitian</span></a></li>
 						</ul>
 					</li>
 					<li><a href="{{ url('#') }}"><span>Lembaga</span></a></li>

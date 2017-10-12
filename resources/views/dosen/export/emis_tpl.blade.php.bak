@@ -1,0 +1,159 @@
+<html>
+	<head>
+		<title>Form Dosen PTKI</title>
+		<style>
+			table{
+			border-collapse:collapse;
+			font-size: 13px;
+			font-family: calibri;
+			}
+			tr td{
+			font-weight: bold;
+			text-align: center;
+			background-color: yellow;
+			}
+			td{
+			border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<td colspan="12">Identitas Pribadi Dosen</td>
+					<td colspan="14">Status Kepegawaian Dosen</td>
+					<td colspan="7">Status Penugasan Dosen</td>
+					<td colspan="5">Pendidikan Formal Terakhir Dosen</td>
+					<td colspan="2">Sertifikasi Dosen</td>
+					<td colspan="2">Informasi Tunjangan Profesi Dosen</td>
+					<td colspan="3">Informasi Karya Ilmiah Dosen</td>
+					<td colspan="4">Informasi Alamat Tempat Tinggal Dosen</td>
+				</tr>
+				<tr>
+					<td rowspan="3">NIP</td>
+					<td rowspan="3">Nomor Induk Dosen Nasional (NIDN)</td>
+					<td rowspan="3">Nama Lengkap Dosen</td>
+					<td colspan="2">Gelar Akademik</td>
+					<td rowspan="3">Jenis Kelamin</td>
+					<td rowspan="3">Tempat Lahir</td>
+					<td colspan="3" rowspan="2">Tanggal Lahir</td>
+					<td rowspan="3">NIK/No. KTP</td>
+					<td rowspan="3">Nama Ibu Kandung</td>
+					<td rowspan="3">Status Kepegawaian</td>
+					<td rowspan="3">Golongan</td>
+					<td rowspan="3">Jabatan Fungsional Dosen</td>
+					<td colspan="4">SK Awal sebagai Dosen</td>
+					<td colspan="4">SK Terbaru sebagai Dosen</td>
+					<td rowspan="3">Instansi yang mengangkat</td>
+					<td rowspan="3">Status Tugas</td>
+					<td rowspan="3">Status Keaktifan Dosen</td>
+					<td rowspan="3">Jenjang  Prodi Tempat Tugas</td>
+					<td rowspan="3">Nama Program Studi Tempat Tugas</td>
+					<td colspan="2">Mata Kuliah Utama Yang Diampu</td>
+					<td colspan="2">Mata Kuliah Lain</td>
+					<td rowspan="3">Jabatan Tambahan di PTKI</td>
+					<td rowspan="3">Jenjang  Pendidikan Terakhir</td>
+					<td rowspan="3">Nama Program Studi Pendidikan Terakhir</td>
+					<td colspan="3" rowspan="2">Tanggal Ijazah Pendidikan Terakhir</td>
+					<td rowspan="3">Status Kelulusan Serdos</td>
+					<td rowspan="3">Tahun Lulus Serdos</td>
+					<td rowspan="3">Status Penerima Tunjangan Profesi Sem. 1 Thn 2016</td>
+					<td rowspan="3">Besarnya Tunjangan Profesi per Bulan (Rp)</td>
+					<td rowspan="3">Jumlah Judul Buku Yang Pernah Ditulis</td>
+					<td rowspan="3">Jumlah Penelitian Ilmiah Yang Pernah Dilakukan</td>
+					<td rowspan="3">Jumlah Artikel Ilmiah Yang Pernah Dimuat di Jurnal Internasional</td>
+					<td rowspan="3">Alamat</td>
+					<td rowspan="3">Kab./Kota</td>
+					<td colspan="2">Provinsi</td>
+				</tr>
+				<tr>
+					<td rowspan="2">Gelar Depan</td>
+					<td rowspan="2">Gelar Belakang</td>
+					<td rowspan="2">Nomor SK Awal</td>
+					<td colspan="3">TMT SK Awal</td>
+					<td rowspan="2">Nomor SK Terbaru</td>
+					<td colspan="3">TMT SK Terbaru</td>
+					<td rowspan="2">Nama Mata Kuliah Utama</td>
+					<td rowspan="2">Jumlah SKS Utama</td>
+					<td rowspan="2">Jumlah Mata Kuliah Lain</td>
+					<td rowspan="2">Jumlah SKS Lain</td>
+					<td rowspan="2">Kode Prov.</td>
+					<td rowspan="2">Nama Provinsi</td>
+				</tr>
+				<tr>			
+					<td>Tgl</td>
+					<td>Bln</td>
+					<td>Thn</td>
+					<td>Tgl</td>
+					<td>Bln</td>
+					<td>Thn</td>
+					<td>Tgl</td>
+					<td>Bln</td>
+					<td>Thn</td>
+					<td>Tgl</td>
+					<td>Bln</td>
+					<td>Thn</td>		
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					<td>               </td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>											

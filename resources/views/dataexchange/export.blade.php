@@ -60,29 +60,29 @@ Ekspor Data {{ $exportable[$data] }}
 		<?php $c = 1; ?>
 		<table class="table table-bordered">
 			<thead>
-			<tr>
-			<th width="20px">No.</th>
-			<th>Format</th>
-			<th></th>
-			</tr>
+				<tr>
+					<th width="20px">No.</th>
+					<th>Format</th>
+					<th></th>
+				</tr>
 			</thead>
 			<tbody>
-			@foreach(config('custom.dataFormat') as $k => $v)
-			@if(in_array($k, $format))
-			<tr>
-			<td>{{ $c }}</td>
-			<td>{{ $v }}</td>
-			<td>
-			@foreach($prodi as $p)
-			<a class="btn btn-success btn-xs" href="{{ url('/export/'. strtolower($data) .'/'. $p -> singkatan . '/' . $k, [Input::get('ta')]) }}"><i class="fa fa-download"></i> {{ $p -> singkatan }}</a>
-			@endforeach
-			</td>
-			</tr>
-			<?php $c++; ?>
-			@endif
-			@endforeach
+				@foreach(config('custom.dataFormat') as $k => $v)
+				@if(in_array($k, $format))
+				<tr>
+					<td>{{ $c }}</td>
+					<td>{{ $v }}</td>
+					<td>
+						@foreach($prodi as $p)
+						<a class="btn btn-success btn-xs" href="{{ url('/export/'. strtolower($data) .'/'. $p -> singkatan . '/' . $k, [Input::get('ta')]) }}"><i class="fa fa-download"></i> {{ $p -> singkatan }}</a>
+						@endforeach
+					</td>
+				</tr>
+				<?php $c++; ?>
+				@endif
+				@endforeach
 			</tbody>
-			</table>
-			</div>
-			</div>
-			@endsection																											
+		</table>
+	</div>
+</div>
+@endsection																											

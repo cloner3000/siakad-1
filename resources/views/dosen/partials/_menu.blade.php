@@ -6,4 +6,3 @@
 <a href="{{ route('dosen.penugasan', $dosen -> id) }}" class="btn btn-info btn-xs btn-flat"> Riwayat Penugasan</a>
 <a href="{{ route('dosen.fungsional', $dosen -> id) }}" class="btn btn-info btn-xs btn-flat"> Riwayat Fungsional</a>
 <a href="{{ route('dosen.kepangkatan', $dosen -> id) }}" class="btn btn-info btn-xs btn-flat"> Riwayat Kepangkatan</a>
-<a href="" class="btn btn-info btn-xs btn-flat"> Riwayat Penelitian</a>

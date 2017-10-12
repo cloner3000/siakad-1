@@ -14,5 +14,6 @@ Sistem Informasi Akademik STAIMA Al-Hikam Malang
 
 * **A Muadib**
 
-* Hat tip to anyone who's code was used
+## Thanks
+* Anyone who's code was used
 * Internet
